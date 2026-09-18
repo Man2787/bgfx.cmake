@@ -30,4 +30,5 @@ if(BGFX_BUILD_TOOLS_SHADER)
 endif()
 
 include(shared.cmake)
-include(examples.cmake)
+
+# include(examples.cmake)

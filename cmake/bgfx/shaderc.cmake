@@ -13,11 +13,11 @@ file(
 	GLOB
 	SHADERC_SOURCES #
 	${BGFX_DIR}/tools/shaderc/*.cpp #
-	${BGFX_DIR}/tools/shaderc/*.h #
 	${BGFX_DIR}/src/shader* #
 )
 
-add_executable(shaderc ${SHADERC_SOURCES})
+add_library(shaderc STATIC ${SHADERC_SOURCES})
+#add_executable(shaderc ${SHADERC_SOURCES})
 
 target_link_libraries(
 	shaderc
@@ -29,6 +29,11 @@ target_link_libraries(
 			spirv-cross
 			webgpu
 			tint
+)
+
+target_include_directories(
+    shaderc 
+    PUBLIC ${BGFX_DIR}/tools/shaderc
 )
 
 target_include_directories(
@@ -64,7 +69,7 @@ set_target_properties(
 )
 
 if(BGFX_BUILD_TOOLS_SHADER)
-	add_executable(bgfx::shaderc ALIAS shaderc)
+	add_library(bgfx::shaderc ALIAS shaderc)
 	if(BGFX_CUSTOM_TARGETS)
 		add_dependencies(bgfx-tools shaderc)
 	endif()
